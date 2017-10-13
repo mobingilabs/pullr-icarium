@@ -20,9 +20,9 @@ script:
       aws --version;
       eval $(aws ecr get-login --region ap-northeast-1);
       if [[ $TRAVIS_TAG == *"dev"* ]]; then
-        export PULLR_IMAGE_NAME=kruldev:${TRAVIS_TAG};
+        export PULLR_IMAGE_NAME=icariumdev:${TRAVIS_TAG};
       else
-        export PULLR_IMAGE_NAME=krul:${TRAVIS_TAG};
+        export PULLR_IMAGE_NAME=icarium:${TRAVIS_TAG};
       fi;
       docker build -t ${PULLR_IMAGE_NAME} .;
       docker images;
