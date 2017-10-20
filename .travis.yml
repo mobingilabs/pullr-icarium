@@ -26,8 +26,8 @@ script:
       fi;
       docker build -t ${PULLR_IMAGE_NAME} .;
       docker images;
-      docker tag ${PULLR_IMAGE_NAME} 963826138034.dkr.ecr.ap-northeast-1.amazonaws.com/${PULLR_IMAGE_NAME};
-      docker push 963826138034.dkr.ecr.ap-northeast-1.amazonaws.com/${PULLR_IMAGE_NAME};
+      docker tag ${PULLR_IMAGE_NAME} ${ECR_REPO_URI}/${PULLR_IMAGE_NAME};
+      docker push ${ECR_REPO_URI}/${PULLR_IMAGE_NAME};
     else
       go build -v;
     fi
