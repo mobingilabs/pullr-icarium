@@ -19,11 +19,10 @@ script:
       export PATH=$PATH:$HOME/.local/bin;
       aws --version;
       eval $(aws ecr get-login --region ap-northeast-1);
+      export PULLR_IMAGE_NAME=pullricarium:${TRAVIS_TAG};
       if [[ $TRAVIS_TAG == *"dev"* ]]; then
-        export PULLR_IMAGE_NAME=icariumdev:${TRAVIS_TAG};
         docker build -t ${PULLR_IMAGE_NAME} --build-arg awsrgn=ap-northeast-1 --build-arg awsid=$AWS_ACCESS_KEY_ID --build-arg awssec=$AWS_SECRET_ACCESS_KEY --build-arg pullrsns=$DEV_PULLR_SNS_ARN --build-arg pullrsqs=$DEV_PULLR_SQS_URL .;
       else
-        export PULLR_IMAGE_NAME=icarium:${TRAVIS_TAG};
         docker build -t ${PULLR_IMAGE_NAME} --build-arg awsrgn=ap-northeast-1 --build-arg awsid=$AWS_ACCESS_KEY_ID --build-arg awssec=$AWS_SECRET_ACCESS_KEY --build-arg pullrsns=$PULLR_SNS_ARN --build-arg pullrsqs=$PULLR_SQS_URL .;
       fi;
       docker images;
