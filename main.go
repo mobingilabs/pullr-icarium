@@ -11,7 +11,7 @@ import (
 var (
 	// main parent (root) command
 	rootCmd = &cobra.Command{
-		Use:   "pullr-icarium",
+		Use:   "icariumd",
 		Short: "pullr docker auto-builder",
 		Long:  `Docker auto-builder service for pullr.`,
 		Run:   run,
