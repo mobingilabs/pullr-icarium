@@ -1,16 +1,33 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-	"time"
+	"log"
+
+	"github.com/mobingilabs/mobingi-sdk-go/pkg/cmdline"
+	"github.com/mobingilabs/mobingi-sdk-go/pkg/debug"
+	"github.com/spf13/cobra"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello, world! "+time.Now().String())
+var (
+	// main parent (root) command
+	rootCmd = &cobra.Command{
+		Use:   "pullr-icarium",
+		Short: "pullr docker auto-builder",
+		Long:  `Docker auto-builder service for pullr.`,
+		Run:   run,
+	}
+)
+
+func run(cmd *cobra.Command, args []string) {
+	debug.Info("main")
 }
 
 func main() {
-	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	log.SetFlags(0)
+	pfx := "[" + cmdline.Args0() + "]: "
+	log.SetPrefix(pfx)
+
+	if err := rootCmd.Execute(); err != nil {
+		log.Fatalln(err)
+	}
 }
