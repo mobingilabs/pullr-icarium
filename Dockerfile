@@ -14,5 +14,5 @@ ENV AWS_REGION=$awsrgn \
     PULLR_SQS_URL=$pullrsqs
 ADD . /go/src/pullr-icarium
 WORKDIR /go/src/pullr-icarium
-RUN go build -v
-ENTRYPOINT ["/go/src/pullr-icarium/pullr-icarium"]
+RUN make
+ENTRYPOINT ["/go/src/pullr-icarium/bin/icariumd"]
