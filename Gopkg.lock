@@ -2,16 +2,33 @@
 
 
 [[projects]]
+  name = "github.com/aws/aws-sdk-go"
+  packages = ["aws","aws/awserr","aws/awsutil","aws/client","aws/client/metadata","aws/corehandlers","aws/credentials","aws/credentials/ec2rolecreds","aws/credentials/endpointcreds","aws/credentials/stscreds","aws/defaults","aws/ec2metadata","aws/endpoints","aws/request","aws/session","aws/signer/v4","internal/shareddefaults","private/protocol","private/protocol/query","private/protocol/query/queryutil","private/protocol/rest","private/protocol/xml/xmlutil","service/sns","service/sqs","service/sts"]
+  revision = "a201bf33b18ad4ab54344e4bc26b87eb6ad37b8e"
+  version = "v1.12.25"
+
+[[projects]]
   name = "github.com/fatih/color"
   packages = ["."]
   revision = "570b54cabe6b8eb0bc2dfce68d964677d63b5260"
   version = "v1.5.0"
 
 [[projects]]
+  name = "github.com/go-ini/ini"
+  packages = ["."]
+  revision = "f280b3ba517bf5fc98922624f21fb0e7a92adaec"
+  version = "v1.30.3"
+
+[[projects]]
   name = "github.com/inconshreveable/mousetrap"
   packages = ["."]
   revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
   version = "v1.0"
+
+[[projects]]
+  name = "github.com/jmespath/go-jmespath"
+  packages = ["."]
+  revision = "0b12d6b5"
 
 [[projects]]
   name = "github.com/mattn/go-colorable"
@@ -27,7 +44,7 @@
 
 [[projects]]
   name = "github.com/mobingilabs/mobingi-sdk-go"
-  packages = ["pkg/cmdline","pkg/debug"]
+  packages = ["mobingi/registry/pullr","pkg/cmdline","pkg/debug"]
   revision = "c4bcb9c1c8a74f12a0e98d5ce383902246846965"
   version = "v0.1.12"
 
@@ -58,6 +75,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ca5fc57215d310719111c9e7eeb4ec4b4268e064ef9dcd2a9839ffa0c5cbf11b"
+  inputs-digest = "a2017f069d852abdf89d318392ddb95cff913c7707f006642cf876582deeab7f"
   solver-name = "gps-cdcl"
   solver-version = 1
