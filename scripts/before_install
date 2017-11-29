@@ -1,0 +1,5 @@
+#!/bin/bash
+rm -rf /home/ec2-user/go/src/github.com/mobingilabs/pullr-icarium
+mkdir -p /home/ec2-user/go/src/github.com/mobingilabs/pullr-icarium
+chown -fR ec2-user /home/ec2-user/go
+yum install golang docker git -y

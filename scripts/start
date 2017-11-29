@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /home/ec2-user/go/src/github.com/mobingilabs/pullr-icarium
+source /home/ec2-user/env
+./pullr-icarium
