@@ -73,10 +73,10 @@ func (r *pullrRepo) findMatchingTag(ref string) (*pullrRepoTag, error) {
 }
 
 type pullrRepoTag struct {
-	Type               string
-	Name               string
-	DockerTag          string
-	DockerfileLocation string
+	Type               string `json:"type"`
+	Name               string `json:"name"`
+	DockerTag          string `json:"docker_tag"`
+	DockerfileLocation string `json:"dockerfile_location"`
 }
 
 func (t *pullrRepoTag) matchesRef(ref string) (bool, error) {
@@ -241,7 +241,7 @@ func build(provider, repositoryFullname, ref, commit string) error {
 	}
 
 	debug.Info("Building docker image in", clonePath, "with tag", repository, ":", tagName)
-	if err := buildDockerImage(clonePath, ref, repository, tagName); err != nil {
+	if err := buildDockerImage(clonePath, repository, tagName); err != nil {
 		return err
 	}
 
@@ -287,33 +287,21 @@ func getPullrRepository(provider, repository string) (*pullrRepo, error) {
 		return nil, err
 	}
 
+	getString := func(attrValue *dynamodb.AttributeValue, key string) string {
+		val := ""
+		if attrValue.M[key] != nil && attrValue.M[key].S != nil {
+			val = *attrValue.M[key].S
+		}
+		return val
+	}
+
 	tags := make([]pullrRepoTag, len(result.Item["tags"].L))
 	for i, tag := range result.Item["tags"].L {
-		_type := ""
-		if tag.M["type"] != nil && tag.M["type"].S != nil {
-			_type = *tag.M["type"].S
-		}
-
-		name := ""
-		if tag.M["name"] != nil && tag.M["name"].S != nil {
-			name = *tag.M["name"].S
-		}
-
-		dockerfileLocation := ""
-		if tag.M["dockerfileLocation"] != nil && tag.M["dockerfileLocation"].S != nil {
-			dockerfileLocation = *tag.M["dockerfileLocation"].S
-		}
-
-		dockerTagName := ""
-		if tag.M["dockerTag"] != nil && tag.M["dockerTag"].S != nil {
-			dockerTagName = *tag.M["dockerTag"].S
-		}
-
 		tags[i] = pullrRepoTag{
-			Type:               _type,
-			Name:               name,
-			DockerTag:          dockerTagName,
-			DockerfileLocation: dockerfileLocation,
+			Type:               getString(tag, "type"),
+			Name:               getString(tag, "name"),
+			DockerTag:          getString(tag, "dockerfileLocation"),
+			DockerfileLocation: getString(tag, "dockerTag"),
 		}
 	}
 
@@ -350,7 +338,7 @@ func getGithubToken(username string) (string, error) {
 	return *githubTokenItem.S, nil
 }
 
-func buildDockerImage(path, ref, imageName, tagName string) error {
+func buildDockerImage(path, imageName, tagName string) error {
 	cmd := exec.Command("docker", "build", "-t", fmt.Sprintf("%s:%s", imageName, tagName), path)
 	cmd.Stderr = os.Stderr
 	return cmd.Run()
