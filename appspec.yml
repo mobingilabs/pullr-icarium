@@ -1,3 +1,4 @@
+version: 0.0
 files:
   - source: /*
     destination: /home/ec2-user/go/src/github.com/mobingilabs/pullr-icarium
