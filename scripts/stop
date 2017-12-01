@@ -1,7 +1,3 @@
 #!/bin/bash
 
-if pgrep pullr-icarium; then 
-    pkill pullr-icarium; 
-    echo "Application stopped";
-fi
-
+immortalctl halt "*"

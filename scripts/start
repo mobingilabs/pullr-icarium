@@ -2,4 +2,4 @@
 
 cd /home/ec2-user/go/src/github.com/mobingilabs/pullr-icarium
 source /home/ec2-user/env
-./pullr-icarium &> /home/ec2-user/icarium.log
+immortal -l /home/ec2-user/icarium.log ./pullr-icarium
