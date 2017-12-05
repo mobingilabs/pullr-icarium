@@ -52,9 +52,9 @@ type pullrMessage struct {
 }
 
 type pullrRepo struct {
-	Repository string
-	Username   string
-	Tags       []pullrRepoTag
+	Repository string         `json:"repository"`
+	Username   string         `json:"username"`
+	Tags       []pullrRepoTag `json:"tags"`
 }
 
 func (r *pullrRepo) findMatchingTag(ref string) (*pullrRepoTag, error) {
@@ -75,8 +75,8 @@ func (r *pullrRepo) findMatchingTag(ref string) (*pullrRepoTag, error) {
 type pullrRepoTag struct {
 	Type               string `json:"type"`
 	Name               string `json:"name"`
-	DockerTag          string `json:"docker_tag"`
-	DockerfileLocation string `json:"dockerfile_location"`
+	DockerTag          string `json:"dockerTag"`
+	DockerfileLocation string `json:"dockerfileLocation"`
 }
 
 func (t *pullrRepoTag) matchesRef(ref string) (bool, error) {
@@ -300,8 +300,8 @@ func getPullrRepository(provider, repository string) (*pullrRepo, error) {
 		tags[i] = pullrRepoTag{
 			Type:               getString(tag, "type"),
 			Name:               getString(tag, "name"),
-			DockerTag:          getString(tag, "dockerfileLocation"),
-			DockerfileLocation: getString(tag, "dockerTag"),
+			DockerfileLocation: getString(tag, "dockerfileLocation"),
+			DockerTag:          getString(tag, "dockerTag"),
 		}
 	}
 
